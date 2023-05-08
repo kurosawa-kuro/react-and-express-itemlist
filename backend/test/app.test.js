@@ -1,7 +1,7 @@
 // app.test.js
 
 import request from "supertest";
-import app from "../src/app/app.js";
+import app from "../src/app/index.js";
 
 describe("GET /", () => {
     it("should return JSON data with status code 200", async () => {

@@ -1,6 +1,6 @@
 // server.js
 
-import app from "./src/app/app.js";
+import app from "./src/app/index.js";
 
 const port = process.env.PORT || 8080;
 
