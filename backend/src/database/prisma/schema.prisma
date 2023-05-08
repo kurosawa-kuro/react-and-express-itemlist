@@ -10,7 +10,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// DATABASE_URL='mysql://57g6ji1otsifill1d8nm:pscale_pw_27PamPqIkdRm8iK8zivELETY6KsoqVSHPtlxwvgZLgU@aws.connect.psdb.cloud/sns_shpping?sslaccept=strict'
 model Item {
   id   Int     @id @default(autoincrement())
   name String?
