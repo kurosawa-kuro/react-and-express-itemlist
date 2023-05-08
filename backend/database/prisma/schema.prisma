@@ -7,9 +7,10 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = "mysql://4wb0arjnrukknryhslmt:pscale_pw_8u77tT8RX0ZVkXcB0vqUom4SbCoTR992kC4KXBie0vZ@aws.connect.psdb.cloud/sns_shpping?sslaccept=strict"
+  url      = "mysql://57g6ji1otsifill1d8nm:pscale_pw_27PamPqIkdRm8iK8zivELETY6KsoqVSHPtlxwvgZLgU@aws.connect.psdb.cloud/sns_shpping?sslaccept=strict"
 }
 
+// DATABASE_URL='mysql://57g6ji1otsifill1d8nm:pscale_pw_27PamPqIkdRm8iK8zivELETY6KsoqVSHPtlxwvgZLgU@aws.connect.psdb.cloud/sns_shpping?sslaccept=strict'
 model Item {
   id   Int     @id @default(autoincrement())
   name String?

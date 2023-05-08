@@ -1,4 +1,4 @@
-const { db } = require("./prisma/prismaClient.js");
+import { db } from "./prisma/prismaClient.js";
 
 async function connectToDatabase() {
   try {

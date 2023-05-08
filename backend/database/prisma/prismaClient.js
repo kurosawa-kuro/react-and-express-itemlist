@@ -1,4 +1,4 @@
-const { PrismaClient } = require("@prisma/client");
+import { PrismaClient } from "@prisma/client";
 
 let db;
 
@@ -8,4 +8,4 @@ if (!global.__db) {
 
 db = global.__db;
 
-module.exports = { db };
+export { db };
