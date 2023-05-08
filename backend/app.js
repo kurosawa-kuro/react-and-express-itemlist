@@ -1,7 +1,7 @@
-const express = require("express");
-const cors = require("cors");
-const asyncHandler = require("express-async-handler");
-const morgan = require("morgan");
+import express from "express";
+import cors from "cors";
+import asyncHandler from "express-async-handler";
+import morgan from "morgan";
 
 const app = express();
 const port = process.env.PORT || 8080;
