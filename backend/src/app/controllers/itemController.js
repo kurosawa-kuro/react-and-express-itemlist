@@ -1,16 +1,15 @@
 // Path: backend/src/app/controllers/itemController.js
 
 import asyncHandler from "express-async-handler";
-import { db } from "../../database/prisma/prismaClient.js";
+import { getAllItems, createNewItem } from "../models/itemModel.js";
 
-export const getAllItems = asyncHandler(async (req, res) => {
-    const items = await db.item.findMany();
+export const getAllItemsController = asyncHandler(async (req, res) => {
+    const items = await getAllItems();
     res.json(items);
 });
 
-export const createNewItem = asyncHandler(async (req, res) => {
-    const newItem = await db.item.create({ data: req.body });
+export const createNewItemController = asyncHandler(async (req, res) => {
+    const newItem = await createNewItem(req.body);
     res.status(201).json(newItem);
 });
 
-export default { getAllItems, createNewItem };

@@ -1,16 +1,14 @@
 // Path: backend/src/app/routes/itemsRoute.js
 
 import asyncHandler from "express-async-handler";
-import itemController from "../controllers/itemController.js";
-
-const { getAllItems, createNewItem } = itemController;
+import { getAllItemsController, createNewItemController } from "../controllers/itemController.js";
 
 const itemRoutes = (app) => {
     // Get all items
-    app.get("/items", asyncHandler(getAllItems));
+    app.get("/items", asyncHandler(getAllItemsController));
 
     // Create a new item
-    app.post("/items", asyncHandler(createNewItem));
+    app.post("/items", asyncHandler(createNewItemController));
 };
 
 export default itemRoutes;
