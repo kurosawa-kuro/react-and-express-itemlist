@@ -1,4 +1,4 @@
-// server.js
+// path: backend\server.js
 
 import app from "./src/app/index.js";
 
