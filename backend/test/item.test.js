@@ -13,7 +13,7 @@ jest.mock("../src/database/prisma/prismaClient.js", () => ({
             ]),
             create: jest.fn((data) => ({
                 id: 3,
-                name: "New Item",
+                name: data.data.name,
             })),
         },
     },
