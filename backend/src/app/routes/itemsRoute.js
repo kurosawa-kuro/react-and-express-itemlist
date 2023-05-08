@@ -1,27 +1,16 @@
-// Path: backend/src/app/routes/items.js
+// Path: backend/src/app/routes/itemsRoute.js
 
 import asyncHandler from "express-async-handler";
-import { db } from "../../database/prisma/prismaClient.js";
+import itemController from "../controllers/itemController.js";
+
+const { getAllItems, createNewItem } = itemController;
 
 const itemRoutes = (app) => {
     // Get all items
-    app.get(
-        "/items",
-        asyncHandler(async (req, res) => {
-            console.log("☆☆☆☆ GET /items");
-            const items = await db.item.findMany();
-            res.json(items);
-        })
-    );
+    app.get("/items", asyncHandler(getAllItems));
 
     // Create a new item
-    app.post(
-        "/items",
-        asyncHandler(async (req, res) => {
-            const newItem = await db.item.create({ data: req.body });
-            res.status(201).json(newItem);
-        })
-    );
+    app.post("/items", asyncHandler(createNewItem));
 };
 
 export default itemRoutes;
