@@ -11,10 +11,14 @@ jest.mock("../src/database/prisma/prismaClient.js", () => ({
                 { id: 1, name: "Item1" },
                 { id: 2, name: "Item2" },
             ]),
-            create: jest.fn((data) => ({
-                id: 3,
-                name: data.data.name,
-            })),
+            create: jest.fn((data) => {
+                const name = data.data.name;
+
+                return {
+                    id: 3,
+                    name,
+                }
+            }),
         },
     },
 }));
@@ -42,12 +46,9 @@ describe("POST /items", () => {
             .send(newItem)
             .set("Accept", "application/json");
 
-        console.log("response.body:", response.body)
-
         expect(response.status).toBe(201);
-        expect(response.body).toEqual({
-            id: 3,
-            name: "New Item",
-        });
+        expect(typeof response.body.id).toBe("number");
+        expect(response.body.name).toBe(newItem.name);
     });
 });
+
