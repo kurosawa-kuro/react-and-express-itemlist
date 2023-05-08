@@ -1,26 +1,16 @@
+// app.js
+
 import express from "express";
-import cors from "cors";
 import asyncHandler from "express-async-handler";
-import morgan from "morgan";
 
 const app = express();
-const port = process.env.PORT || 8080;
-
-// CORS設定
-app.use(
-  cors({
-    origin: "http://localhost:3000",
-  })
-);
-
-// morganのログフォーマットを指定します
-app.use(morgan("tiny"));
 
 // GETリクエストのルートエンドポイント
 app.get(
   "/",
   asyncHandler(async (req, res) => {
     // レスポンスのJSONデータを返す
+    console.log("☆☆☆☆ GET /");
     res.json([
       { id: 1, name: "name 1" },
       { id: 2, name: "name 2" },
@@ -29,7 +19,4 @@ app.get(
   })
 );
 
-// サーバーの起動
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+export default app;
