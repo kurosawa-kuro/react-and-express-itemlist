@@ -1,31 +1,27 @@
 // src/components/ItemsList.js
-import React, { useEffect, useState } from "react";
+import React from "react";
+import { useQuery } from "react-query";
 import { fetchItems } from "../api";
-import AddItemForm from "./AddItemForm"; // Add this import
+import AddItemForm from "./AddItemForm";
 
 const ItemsList = () => {
-    const [items, setItems] = useState([]);
+    const { data: items, isLoading, isError, refetch } = useQuery("items", fetchItems);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const data = await fetchItems();
-                setItems(data);
-            } catch (error) {
-                console.error("Error fetching items:", error);
-            }
-        };
-
-        fetchData();
-    }, []);
-
-    const handleNewItem = (newItem) => {
-        setItems((prevItems) => [...prevItems, newItem]);
+    const handleNewItem = () => {
+        refetch();
     };
+
+    if (isLoading) {
+        return <p>Loading...</p>;
+    }
+
+    if (isError) {
+        return <p>Error fetching items</p>;
+    }
 
     return (
         <div>
-            <AddItemForm onNewItem={handleNewItem} /> {/* Pass the handleNewItem function to the AddItemForm component */}
+            <AddItemForm onNewItem={handleNewItem} />
             <ul>
                 {items.map((item) => (
                     <li key={item.id}>{item.name}</li>

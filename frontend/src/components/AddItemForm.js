@@ -1,9 +1,20 @@
 // src/components/AddItemForm.js
 import React, { useState } from "react";
+import { useMutation } from "react-query";
 import { createItem } from "../api";
 
 const AddItemForm = ({ onNewItem }) => {
     const [name, setName] = useState("");
+    const mutation = useMutation(createItem, {
+        onSuccess: () => {
+            setName("");
+            onNewItem();
+        },
+        onError: () => {
+            setError("Error creating item");
+        },
+    });
+
     const [error, setError] = useState(null);
 
     const handleSubmit = async (event) => {
@@ -14,14 +25,7 @@ const AddItemForm = ({ onNewItem }) => {
             return;
         }
 
-        try {
-            const newItem = await createItem(name);
-            setName("");
-            setError(null);
-            onNewItem(newItem);
-        } catch (error) {
-            setError("Error creating item");
-        }
+        mutation.mutate(name);
     };
 
     return (
