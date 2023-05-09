@@ -1,6 +1,7 @@
 // src/components/ItemsList.js
 import React, { useEffect, useState } from "react";
 import { fetchItems } from "../api";
+import AddItemForm from "./AddItemForm"; // Add this import
 
 const ItemsList = () => {
     const [items, setItems] = useState([]);
@@ -18,9 +19,14 @@ const ItemsList = () => {
         fetchData();
     }, []);
 
+    const handleNewItem = (newItem) => {
+        setItems((prevItems) => [...prevItems, newItem]);
+    };
+
     return (
         <div>
             <h2>Items List</h2>
+            <AddItemForm onNewItem={handleNewItem} /> {/* Pass the handleNewItem function to the AddItemForm component */}
             <ul>
                 {items.map((item) => (
                     <li key={item.id}>{item.name}</li>
