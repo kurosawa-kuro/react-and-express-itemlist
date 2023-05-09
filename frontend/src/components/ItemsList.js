@@ -1,17 +1,12 @@
 // src/components/ItemsList.js
 import React from "react";
 import {
-    useQuery,
-    useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
+    useQuery
 } from '@tanstack/react-query'
 import { fetchItems } from "../api";
 import AddItemForm from "./AddItemForm";
 
 const ItemsList = () => {
-    const queryClient = useQueryClient();
     const { data: items, isLoading, isError, refetch } = useQuery(["items"], fetchItems);
 
     const handleNewItem = () => {

@@ -1,11 +1,8 @@
 // src/components/AddItemForm.js
 import React, { useState } from "react";
 import {
-    useQuery,
     useMutation,
-    useQueryClient,
-    QueryClient,
-    QueryClientProvider,
+    useQueryClient
 } from '@tanstack/react-query'
 import { createItem } from "../api";
 

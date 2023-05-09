@@ -1,7 +1,5 @@
 // src/App.js
 import React from "react";
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
-import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import "./App.css";
 import ItemsList from "./components/ItemsList";
 
