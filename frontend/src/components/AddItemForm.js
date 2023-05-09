@@ -1,15 +1,11 @@
 // src/components/AddItemForm.js
 import React, { useState } from "react";
-import {
-    useMutation,
-    useQueryClient
-} from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { createItem } from "../api";
 
 const AddItemForm = ({ onNewItem }) => {
     const [name, setName] = useState("");
     const [error, setError] = useState(null);
-    const queryClient = useQueryClient();
 
     const mutation = useMutation(
         (data) => createItem(data.name),
@@ -17,7 +13,6 @@ const AddItemForm = ({ onNewItem }) => {
             onSuccess: () => {
                 setName("");
                 onNewItem();
-                queryClient.invalidateQueries("items");
             },
             onError: () => {
                 setError("Error creating item");
@@ -27,6 +22,11 @@ const AddItemForm = ({ onNewItem }) => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+
+        if (!name) {
+            setError("Name is required");
+            return;
+        }
 
         if (!name) {
             setError("Name is required");
@@ -51,4 +51,3 @@ const AddItemForm = ({ onNewItem }) => {
 };
 
 export default AddItemForm;
-

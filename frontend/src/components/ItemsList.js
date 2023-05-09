@@ -1,16 +1,16 @@
 // src/components/ItemsList.js
 import React from "react";
-import {
-    useQuery
-} from '@tanstack/react-query'
+import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { fetchItems } from "../api";
 import AddItemForm from "./AddItemForm";
 
 const ItemsList = () => {
-    const { data: items, isLoading, isError, refetch } = useQuery(["items"], fetchItems);
+    const { data: items, isLoading, isError } = useQuery(["items"], fetchItems);
+    const queryClient = useQueryClient();
 
     const handleNewItem = () => {
-        refetch();
+        // Invalidate the items query to trigger a refetch
+        queryClient.invalidateQueries('items');
     };
 
     if (isLoading) {
