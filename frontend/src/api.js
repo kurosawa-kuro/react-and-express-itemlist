@@ -16,6 +16,7 @@ export const createItem = async (name) => {
 };
 
 export const fetchItems = async () => {
+    console.log("hhhhhhhhhhhhhh fetchItems");
     try {
         const response = await apiClient.get("/items");
         return response.data;
