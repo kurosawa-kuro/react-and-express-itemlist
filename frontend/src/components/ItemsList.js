@@ -10,7 +10,7 @@ const ItemsList = () => {
 
     const handleNewItem = () => {
         // Invalidate the items query to trigger a refetch
-        queryClient.invalidateQueries('items');
+        queryClient.invalidateQueries(["items"]);
     };
 
     if (isLoading) {
