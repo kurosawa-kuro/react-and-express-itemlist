@@ -26,7 +26,6 @@ const AddItemForm = ({ onNewItem }) => {
 
     return (
         <form onSubmit={handleSubmit}>
-            <h2>Add Item</h2>
             <input
                 type="text"
                 placeholder="Item name"

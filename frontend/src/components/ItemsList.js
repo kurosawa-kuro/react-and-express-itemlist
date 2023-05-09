@@ -25,7 +25,6 @@ const ItemsList = () => {
 
     return (
         <div>
-            <h2>Items List</h2>
             <AddItemForm onNewItem={handleNewItem} /> {/* Pass the handleNewItem function to the AddItemForm component */}
             <ul>
                 {items.map((item) => (

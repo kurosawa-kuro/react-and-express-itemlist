@@ -2,7 +2,6 @@
 import React from "react";
 import "./App.css";
 import ItemsList from "./components/ItemsList";
-import AddItemForm from "./components/AddItemForm"; // Add this import
 
 function App() {
   return (
