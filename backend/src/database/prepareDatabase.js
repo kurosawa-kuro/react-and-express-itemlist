@@ -60,6 +60,16 @@ async function truncateTagTable() {
     }
 }
 
+async function truncateUserFollowerTable() {
+    try {
+        await db.UserFollower.deleteMany({});
+        console.log("Truncated UserFollower table.");
+    } catch (e) {
+        console.error("Failed to truncate UserFollower table:", e);
+        throw e;
+    }
+}
+
 export async function prepareDatabaseOperation() {
     await connectToDatabase();
 
@@ -67,5 +77,6 @@ export async function prepareDatabaseOperation() {
     await truncateTagTable();
     await truncateCommentTable();
     await truncatePostTable();
+    await truncateUserFollowerTable();
     await truncateUserTable();
 }

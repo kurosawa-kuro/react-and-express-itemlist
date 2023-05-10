@@ -90,3 +90,66 @@ export async function updateUserPassword(id, oldPassword, newPassword) {
     data: { password: await bcyptjs.hash(newPassword, 10) },
   });
 }
+
+// Follow user
+export async function followUser(userId, followerId) {
+  if (!userId || !followerId) {
+    throw new Error("User ID and Follower ID are required");
+  }
+
+  if (userId === followerId) {
+    throw new Error("Cannot follow oneself");
+  }
+
+  const existingRelation = await db.userFollower.findUnique({
+    where: { userId_followerId: { userId, followerId } },
+  });
+
+  if (existingRelation) {
+    throw new Error("Already following this user");
+  }
+
+  return await db.userFollower.create({
+    data: { userId, followerId },
+  });
+}
+
+// Unfollow user
+export async function unfollowUser(userId, followerId) {
+  if (!userId || !followerId) {
+    throw new Error("User ID and Follower ID are required");
+  }
+
+  const existingRelation = await db.userFollower.findUnique({
+    where: { userId_followerId: { userId, followerId } },
+  });
+
+  if (!existingRelation) {
+    throw new Error("Not following this user");
+  }
+
+  return await db.userFollower.delete({
+    where: { userId_followerId: { userId, followerId } },
+  });
+}
+
+export async function readAllFollowers(userId) {
+  if (!userId) {
+    throw new Error("User ID is required");
+  }
+
+  const followers = await db.userFollower.findMany({
+    where: { userId: userId },
+    select: {
+      follower: {
+        select: {
+          id: true,
+          name: true,
+          email: true,
+        },
+      },
+    },
+  });
+
+  return followers.map(f => f.follower);
+}

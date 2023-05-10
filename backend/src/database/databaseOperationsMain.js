@@ -13,6 +13,13 @@ const userData = {
   newPassword: "password2",
 };
 
+const userData2 = {
+  username: "user2",
+  password: "password1",
+  email: "user2@example.com",
+  newPassword: "password2",
+};
+
 const post1Data = {
   title: "Sample Title 1",
   imageUrl: "https://example.com/sample-image1.jpg",
@@ -39,7 +46,12 @@ async function main() {
   await prepareDatabaseOperation();
 
   // Register a new user
-  const registeredUser = await UserOperations.registerUser(userData.username, userData.password, userData.email);
+  const registeredUser = await UserOperations.registerUser(
+    userData.username, userData.password, userData.email);
+  console.log("Registered user:", registeredUser);
+
+  const registeredUser2 = await UserOperations.registerUser(
+    userData2.username, userData2.password, userData2.email);
   console.log("Registered user:", registeredUser);
 
   // Retrieve user by email
@@ -53,6 +65,14 @@ async function main() {
   // Update user's password
   await UserOperations.updateUserPassword(registeredUser.id, userData.password, userData.newPassword);
   console.log("User password updated");
+
+  // Follow user example
+  const followedUser = await UserOperations.followUser(registeredUser.id, registeredUser2.id);
+  console.log("Followed user:", followedUser);
+
+  // Retrieve all followers of a user
+  const allFollowers = await UserOperations.readAllFollowers(registeredUser.id);
+  console.log("All followers of the user:", allFollowers);
 
   // Create a new post
   const createdPostFirst = await PostOperations.createPost(
@@ -128,7 +148,9 @@ async function main() {
   console.log("postTagByTagId[0].post.user.name:", postTagByTagId[0].post.user.name);
 }
 
-main().catch((e) => console.error(e)).finally(() => {
-  console.log("Finished database operations.");
-  db.$disconnect()
-});
+main()
+  .catch((e) => console.error(e))
+  .finally(() => {
+    console.log("Finished database operations.");
+    db.$disconnect()
+  });
