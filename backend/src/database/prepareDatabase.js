@@ -3,9 +3,9 @@ import { db } from "./prisma/prismaClient.js";
 async function connectToDatabase() {
     try {
         await db.$connect();
-        console.log("データベースに接続しました。");
+        console.log("Connected to the database.");
     } catch (e) {
-        console.error("データベースに接続できませんでした:", e);
+        console.error("Failed to connect to the database:", e);
         throw e;
     }
 }

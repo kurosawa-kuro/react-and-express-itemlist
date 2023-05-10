@@ -90,4 +90,7 @@ async function main() {
 
 main()
   .catch((e) => console.error(e))
-  .finally(() => db.$disconnect());
+  .finally(() => {
+    console.log("Finished database operations.");
+    db.$disconnect()
+  });
