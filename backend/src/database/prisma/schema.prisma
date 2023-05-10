@@ -75,7 +75,6 @@ model PostTag {
   post       Post     @relation(fields: [postId], references: [id])
   tag        Tag      @relation(fields: [tagId], references: [id])
   assignedAt DateTime @default(now())
-  assignedBy String
 
   @@unique([postId, tagId])
   @@index([tagId])

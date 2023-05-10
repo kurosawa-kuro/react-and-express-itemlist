@@ -35,27 +35,36 @@ async function main() {
   console.log("User password updated");
 
   // Create a new post
-  const createdPost = await PostOperations.createPost(
+  const createdPostFirst = await PostOperations.createPost(
     registeredUser.id,
-    "Sample Title",
+    "Sample Title 1",
     "https://example.com/sample-image.jpg",
-    "sample-image.jpg",
-    "This is a sample post"
+    "sample-image1.jpg",
+    "This is a sample post 1"
   );
-  console.log("New post created:", createdPost);
+  console.log("New post created:", createdPostFirst);
+
+  const createdPostSecond = await PostOperations.createPost(
+    registeredUser.id,
+    "Sample Title 2",
+    "https://example.com/sample-image.jpg",
+    "sample-image2.jpg",
+    "This is a sample post 2"
+  );
+  console.log("New post created:", createdPostSecond);
 
   // Retrieve all posts
   const allPosts = await PostOperations.getAllPosts();
   console.log("All posts retrieved:", allPosts);
 
   // Retrieve post by ID
-  const postById = await PostOperations.getPostById(createdPost.id);
+  const postById = await PostOperations.getPostById(createdPostFirst.id);
   console.log("Post retrieved by ID:", postById);
 
   // Create a new comment
   const createdComment = await CommentOperations.createComment(
     registeredUser.id,
-    createdPost.id,
+    createdPostFirst.id,
     "This is a sample comment"
   );
   console.log("New comment created:", createdComment);
@@ -81,8 +90,12 @@ async function main() {
   console.log("Tag retrieved by ID:", tagById);
 
   // Create a new post-tag relation
-  const createdPostTag = await PostTagOperations.createPostTag(createdPost.id, createdTag.id, registeredUser.name);
+  const createdPostTag = await PostTagOperations.createPostTag(
+    createdPostFirst.id, createdTag.id);
   console.log("New post-tag relation created:", createdPostTag);
+
+  await PostTagOperations.createPostTag(
+    createdPostSecond.id, createdTag.id);
 
   // Retrieve all post-tag relations
   const allPostTags = await PostTagOperations.getAllPostTags();
@@ -90,7 +103,8 @@ async function main() {
 
   // Retrieve post-tag relation by Tag ID
   const postTagByTagId = await PostTagOperations.getPostTagsByTagId(createdPostTag.tagId);
-  console.log("Post-tag relation retrieved by ID:", JSON.stringify(postTagByTagId));
+  console.log("Post-tag relation retrieved by Tag ID:", postTagByTagId);
+  console.log("Post-tag relation retrieved by Tag ID:", JSON.stringify(postTagByTagId));
   console.log("postTagByTagId[0].post.user.name:", postTagByTagId[0].post.user.name);
 }
 

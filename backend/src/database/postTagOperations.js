@@ -2,16 +2,15 @@
 import { db } from "./prisma/prismaClient.js";
 
 // Create PostTag
-export async function createPostTag(postId, tagId, assignedBy) {
-    if (!postId || !tagId || !assignedBy) {
-        throw new Error("Post ID, Tag ID, and assignedBy are required");
+export async function createPostTag(postId, tagId) {
+    if (!postId || !tagId) {
+        throw new Error("Post ID, Tag ID are required");
     }
 
     return await db.postTag.create({
         data: {
             postId,
             tagId,
-            assignedBy,
         },
     });
 }
