@@ -3,10 +3,16 @@
 import bcyptjs from "bcryptjs";
 import { db } from "./prisma/prismaClient.js";
 
-// Create
-export async function createUser(name, password, email, isAdmin = false) {
+// Register User
+export async function registerUser(name, password, email, isAdmin = false) {
   if (!name || !password || !email) {
     throw new Error("Name, password, and email are required");
+  }
+
+  // Check if user already exists
+  const existingUser = await getUserByEmail(email);
+  if (existingUser) {
+    throw new Error("User already exists");
   }
 
   return await db.user.create({

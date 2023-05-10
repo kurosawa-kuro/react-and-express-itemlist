@@ -6,7 +6,7 @@ import {
 } from "./prepareDatabase.js";
 
 import {
-  createUser,
+  registerUser,
   getUserByEmail
 } from "./database_operations_user.js";
 
@@ -38,7 +38,7 @@ async function main() {
   await prepare_database_operation();
 
   // Create User
-  const newUser = await createUser("user1", "password1", "user1@example.com");
+  const newUser = await registerUser("user1", "password1", "user1@example.com");
   console.log("Created user:", newUser);
 
   // Read User
