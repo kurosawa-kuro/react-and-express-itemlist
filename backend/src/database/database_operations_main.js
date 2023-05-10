@@ -7,6 +7,8 @@ import {
 
 import {
   registerUser,
+  loginUser,
+  updateUserPassword,
   getUserByEmail
 } from "./database_operations_user.js";
 
@@ -37,13 +39,21 @@ import {
 async function main() {
   await prepare_database_operation();
 
-  // Create User
+  // Register User
   const newUser = await registerUser("user1", "password1", "user1@example.com");
-  console.log("Created user:", newUser);
+  console.log("Register user:", newUser);
 
   // Read User
   const userByEmail = await getUserByEmail(newUser.email);
   console.log("Retrieved user by email:", userByEmail);
+
+  // Login User
+  const isloginUser = await loginUser("user1@example.com", "password1");
+  console.log("Login user:", isloginUser);
+
+  // updateUserPassword
+  await updateUserPassword(newUser.id, "password1", "password2");
+  console.log("Updated user password");
 
   // Create Post
   const newPost = await createPost(
