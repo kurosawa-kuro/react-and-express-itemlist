@@ -1,5 +1,5 @@
 // Path: full-stack-basic\react-and-express-itemlist\backend\src\database\database_operations_tag.js
-import { db } from "./prisma/prismaClient.js";
+import { db } from "../../prisma/prismaClient.js";
 
 // Create Tag
 export async function createTag(name) {

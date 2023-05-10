@@ -1,5 +1,5 @@
 // Path: full-stack-basic\react-and-express-itemlist\backend\src\database\database_operations_postTag.js
-import { db } from "./prisma/prismaClient.js";
+import { db } from "../../prisma/prismaClient.js";
 
 // Create PostTag
 export async function createPostTag(postId, tagId) {

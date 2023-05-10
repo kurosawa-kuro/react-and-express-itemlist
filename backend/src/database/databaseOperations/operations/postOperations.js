@@ -1,5 +1,5 @@
 // Path: full-stack-basic\react-and-express-itemlist\backend\src\database\database_operations_post.js
-import { db } from "./prisma/prismaClient.js";
+import { db } from "../../prisma/prismaClient.js";
 
 // Create Post
 export async function createPost(userId, title, image, originalName, comment) {

@@ -1,7 +1,7 @@
 // Path: full-stack-basic\react-and-express-itemlist\backend\src\database\database_operations_user.js
 
 import bcyptjs from "bcryptjs";
-import { db } from "./prisma/prismaClient.js";
+import { db } from "../../prisma/prismaClient.js";
 
 // Register User
 export async function registerUser(name, password, email, isAdmin = false) {

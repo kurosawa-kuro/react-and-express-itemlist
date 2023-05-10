@@ -1,16 +1,16 @@
-import { db } from "./prisma/prismaClient.js";
-import { prepareDatabaseOperation } from "./prepareDatabase.js";
-import * as UserOperations from "./userOperations.js";
-import * as PostOperations from "./postOperations.js";
-import * as CommentOperations from "./commentOperations.js";
-import * as TagOperations from "./tagOperations.js";
-import * as PostTagOperations from "./postTagOperations.js";
-import * as SampleData from "./sampleData.js";
+import { db } from "../prisma/prismaClient.js";
+import { setupDatabaseForOperations } from "./operations/prepareDatabase.js";
+import * as UserOperations from "./operations/userOperations.js";
+import * as PostOperations from "./operations/postOperations.js";
+import * as CommentOperations from "./operations/commentOperations.js";
+import * as TagOperations from "./operations/tagOperations.js";
+import * as PostTagOperations from "./operations/postTagOperations.js";
+import * as SampleData from "./data/sampleData.js";
 
 
 
 async function main() {
-  await prepareDatabaseOperation();
+  await setupDatabaseForOperations();
 
   // Register two users
   const registeredUser1 = await UserOperations.registerUser(
