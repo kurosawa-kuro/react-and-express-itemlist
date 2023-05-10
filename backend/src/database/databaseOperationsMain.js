@@ -1,5 +1,3 @@
-// Path: full-stack-basic\react-and-express-itemlist\backend\src\database\database_operations_main.js
-
 import { db } from "./prisma/prismaClient.js";
 import { prepareDatabaseOperation } from "./prepareDatabase.js";
 import * as UserOperations from "./userOperations.js";
@@ -13,6 +11,28 @@ const userData = {
   password: "password1",
   email: "user1@example.com",
   newPassword: "password2",
+};
+
+const post1Data = {
+  title: "Sample Title 1",
+  imageUrl: "https://example.com/sample-image1.jpg",
+  imageName: "sample-image1.jpg",
+  content: "This is a sample post 1",
+};
+
+const post2Data = {
+  title: "Sample Title 2",
+  imageUrl: "https://example.com/sample-image2.jpg",
+  imageName: "sample-image2.jpg",
+  content: "This is a sample post 2",
+};
+
+const commentData = {
+  content: "This is a sample comment",
+};
+
+const tagData = {
+  name: "Sample Tag",
 };
 
 async function main() {
@@ -37,19 +57,19 @@ async function main() {
   // Create a new post
   const createdPostFirst = await PostOperations.createPost(
     registeredUser.id,
-    "Sample Title 1",
-    "https://example.com/sample-image.jpg",
-    "sample-image1.jpg",
-    "This is a sample post 1"
+    post1Data.title,
+    post1Data.imageUrl,
+    post1Data.imageName,
+    post1Data.content
   );
   console.log("New post created:", createdPostFirst);
 
   const createdPostSecond = await PostOperations.createPost(
     registeredUser.id,
-    "Sample Title 2",
-    "https://example.com/sample-image.jpg",
-    "sample-image2.jpg",
-    "This is a sample post 2"
+    post2Data.title,
+    post2Data.imageUrl,
+    post2Data.imageName,
+    post2Data.content
   );
   console.log("New post created:", createdPostSecond);
 
@@ -65,7 +85,7 @@ async function main() {
   const createdComment = await CommentOperations.createComment(
     registeredUser.id,
     createdPostFirst.id,
-    "This is a sample comment"
+    commentData.content
   );
   console.log("New comment created:", createdComment);
 
@@ -78,7 +98,7 @@ async function main() {
   console.log("Comment retrieved by ID:", commentById);
 
   // Create a new tag
-  const createdTag = await TagOperations.createTag("Sample Tag");
+  const createdTag = await TagOperations.createTag(tagData.name);
   console.log("New tag created:", createdTag);
 
   // Retrieve all tags
