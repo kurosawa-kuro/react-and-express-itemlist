@@ -8,12 +8,18 @@ import * as CommentOperations from "./commentOperations.js";
 import * as TagOperations from "./tagOperations.js";
 import * as PostTagOperations from "./postTagOperations.js";
 
+const userData = {
+  username: "user1",
+  password: "password1",
+  email: "user1@example.com",
+  newPassword: "password2",
+};
 
 async function main() {
   await prepareDatabaseOperation();
 
   // Register a new user
-  const registeredUser = await UserOperations.registerUser("user1", "password1", "user1@example.com");
+  const registeredUser = await UserOperations.registerUser(userData.username, userData.password, userData.email);
   console.log("Registered user:", registeredUser);
 
   // Retrieve user by email
@@ -21,11 +27,11 @@ async function main() {
   console.log("User retrieved by email:", userByEmail);
 
   // Authenticate and login user
-  const authenticatedUser = await UserOperations.loginUser("user1@example.com", "password1");
+  const authenticatedUser = await UserOperations.loginUser(userData.email, userData.password);
   console.log("Authenticated user:", authenticatedUser);
 
   // Update user's password
-  await UserOperations.updateUserPassword(registeredUser.id, "password1", "password2");
+  await UserOperations.updateUserPassword(registeredUser.id, userData.password, userData.newPassword);
   console.log("User password updated");
 
   // Create a new post
@@ -88,9 +94,7 @@ async function main() {
   console.log("postTagByTagId[0].post.user.name:", postTagByTagId[0].post.user.name);
 }
 
-main()
-  .catch((e) => console.error(e))
-  .finally(() => {
-    console.log("Finished database operations.");
-    db.$disconnect()
-  });
+main().catch((e) => console.error(e)).finally(() => {
+  console.log("Finished database operations.");
+  db.$disconnect()
+});
