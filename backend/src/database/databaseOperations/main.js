@@ -34,8 +34,14 @@ async function main() {
   console.log("User 1's password updated");
 
   // Make user 1 follow user 2
-  const followedUser = await UserOperations.followUser(registeredUser1.id, registeredUser2.id);
+  const followedUser = await UserOperations.followUser(
+    registeredUser1.id, registeredUser2.id);
   console.log("User 1 followed user 2:", followedUser);
+
+  // Check if user 1 is followed user 2
+  const isFollowed = await UserOperations.isFollowed(
+    registeredUser1.id, registeredUser2.id);
+  console.log("Is user 1 followed user 2:", isFollowed);
 
   // Retrieve all followers of user 1
   const allFollowers = await UserOperations.readAllFollowers(registeredUser1.id);

@@ -153,3 +153,16 @@ export async function readAllFollowers(userId) {
 
   return followers.map(f => f.follower);
 }
+
+// フォローされているかを確認する
+export async function isFollowed(userId, followerId) {
+  if (!userId || !followerId) {
+    throw new Error("User ID and Follower ID are required");
+  }
+
+  const existingRelation = await db.userFollower.findUnique({
+    where: { userId_followerId: { userId, followerId } },
+  });
+
+  return existingRelation ? true : false;
+}
