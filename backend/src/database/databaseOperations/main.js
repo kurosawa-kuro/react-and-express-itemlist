@@ -12,39 +12,58 @@ async function main() {
 
   // Register two users
   const registeredUser1 = await UserOperations.registerUser(
-    SampleData.user1.username, SampleData.user1.password, SampleData.user1.email);
+    SampleData.user1.username,
+    SampleData.user1.password,
+    SampleData.user1.email
+  );
   console.log("Registered user 1:", registeredUser1);
 
   const registeredUser2 = await UserOperations.registerUser(
-    SampleData.user2.username, SampleData.user2.password, SampleData.user2.email);
+    SampleData.user2.username,
+    SampleData.user2.password,
+    SampleData.user2.email
+  );
   console.log("Registered user 2:", registeredUser2);
 
   // Retrieve user by their email
-  const userByEmail = await UserOperations.getUserByEmail(registeredUser1.email);
+  const userByEmail = await UserOperations.getUserByEmail(
+    registeredUser1.email
+  );
   console.log("User retrieved by email:", userByEmail);
 
   // Authenticate and log in user 1
   const authenticatedUser = await UserOperations.loginUser(
-    SampleData.user1.email, SampleData.user1.password);
+    SampleData.user1.email,
+    SampleData.user1.password
+  );
   console.log("Authenticated user:", authenticatedUser);
 
   // Update user 1's password
   await UserOperations.updateUserPassword(
-    registeredUser1.id, SampleData.user1.password, SampleData.user1.newPassword);
+    registeredUser1.id,
+    SampleData.user1.password,
+    SampleData.user1.newPassword
+  );
   console.log("User 1's password updated");
 
   // Make user 1 follow user 2
   const followedUser = await UserOperations.followUser(
-    registeredUser1.id, registeredUser2.id);
+    registeredUser1.id,
+    registeredUser2.id
+  );
   console.log("User 1 followed user 2:", followedUser);
 
   // Check if user 1 is followed user 2
   const isFollowed = await UserOperations.isFollowed(
-    registeredUser1.id, registeredUser2.id);
+    registeredUser1.id,
+    registeredUser2.id
+  );
   console.log("Is user 1 followed user 2:", isFollowed);
 
   // Retrieve all followers of user 1
-  const allFollowers = await UserOperations.readAllFollowers(registeredUser1.id);
+  const allFollowers = await UserOperations.readAllFollowers(
+    registeredUser1.id
+  );
   console.log("All followers of user 1:", allFollowers);
 
   // Create two new posts for user 1
@@ -71,7 +90,9 @@ async function main() {
   console.log("All posts retrieved:", allPosts);
 
   // Retrieve post by its ID
-  const postById = await PostOperations.getPostById(createdPost1.id);
+  const postById = await PostOperations.getPostById(
+    createdPost1.id
+  );
   console.log("Post retrieved by ID:", postById);
 
   // Create a comment for post 1
@@ -87,11 +108,15 @@ async function main() {
   console.log("All comments retrieved:", allComments);
 
   // Retrieve comment by its ID
-  const commentById = await CommentOperations.getCommentById(createdComment.id);
+  const commentById = await CommentOperations.getCommentById(
+    createdComment.id
+  );
   console.log("Comment retrieved by ID:", commentById);
 
   // Create a new tag
-  const createdTag = await TagOperations.createTag(SampleData.tag1.name);
+  const createdTag = await TagOperations.createTag(
+    SampleData.tag1.name
+  );
   console.log("New tag created:", createdTag);
 
   // Retrieve all existing tags
@@ -100,20 +125,32 @@ async function main() {
 
   // Create a post-tag relation for post 1 and the created tag
   const createdPostTag = await PostTagOperations.createPostTag(
-    createdPost1.id, createdTag.id);
-  console.log("New post-tag relation created for post 1 and the tag:", createdPostTag);
+    createdPost1.id,
+    createdTag.id
+  );
+  console.log(
+    "New post-tag relation created for post 1 and the tag:",
+    createdPostTag
+  );
 
   // Create a post-tag relation for post 2 and the created tag
   await PostTagOperations.createPostTag(
-    createdPost2.id, createdTag.id);
+    createdPost2.id,
+    createdTag.id
+  );
 
   // Retrieve all existing post-tag relations
   const allPostTags = await PostTagOperations.getAllPostTags();
   console.log("All post-tag relations retrieved:", allPostTags);
 
   // Retrieve post-tag relations by the tag ID
-  const postTagByTagId = await PostTagOperations.getPostTagsByTagId(createdPostTag.tagId);
-  console.log("Post-tag relations retrieved by Tag ID:", postTagByTagId);
+  const postTagByTagId = await PostTagOperations.getPostTagsByTagId(
+    createdPostTag.tagId
+  );
+  console.log(
+    "Post-tag relations retrieved by Tag ID:",
+    postTagByTagId
+  );
   // console.log("Post-tag relations retrieved by Tag ID (JSON):", JSON.stringify(postTagByTagId));
   // console.log("postTagByTagId[0].post.user.name:", postTagByTagId[0].post.user.name);
 }
