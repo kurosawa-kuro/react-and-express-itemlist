@@ -1,7 +1,7 @@
 // src/components/ItemsList.js
 import React from "react";
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { fetchItems } from "../api";
+import { fetchItems } from "../services/api";
 import AddItemForm from "./AddItemForm";
 
 const ItemsList = () => {
