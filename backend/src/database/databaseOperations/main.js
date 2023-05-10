@@ -108,8 +108,8 @@ async function main() {
   // Retrieve post-tag relations by the tag ID
   const postTagByTagId = await PostTagOperations.getPostTagsByTagId(createdPostTag.tagId);
   console.log("Post-tag relations retrieved by Tag ID:", postTagByTagId);
-  console.log("Post-tag relations retrieved by Tag ID (JSON):", JSON.stringify(postTagByTagId));
-  console.log("postTagByTagId[0].post.user.name:", postTagByTagId[0].post.user.name);
+  // console.log("Post-tag relations retrieved by Tag ID (JSON):", JSON.stringify(postTagByTagId));
+  // console.log("postTagByTagId[0].post.user.name:", postTagByTagId[0].post.user.name);
 }
 
 main()
