@@ -14,3 +14,60 @@ model Item {
   id   Int     @id @default(autoincrement())
   name String?
 }
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  password  String
+  email     String    @unique
+  isAdmin   Boolean   @default(false)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  posts     Post[]
+  comments  Comment[]
+}
+
+model Post {
+  id           Int       @id @default(autoincrement())
+  userId       Int       @default(1)
+  title        String    @default("No Title")
+  image        String    @default("https://www.shoshinsha-design.com/wp-content/uploads/2020/05/noimage-760x460.png")
+  originalName String    @default("sample.jpg")
+  comment      String?
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  user         User      @relation(fields: [userId], references: [id])
+  comments     Comment[]
+  tags         PostTag[]
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  postId    Int
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  user      User     @relation(fields: [userId], references: [id])
+  post      Post     @relation(fields: [postId], references: [id])
+}
+
+model Tag {
+  id        Int       @id @default(autoincrement())
+  name      String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  posts     PostTag[]
+}
+
+model PostTag {
+  id         Int      @id @default(autoincrement())
+  postId     Int
+  tagId      Int
+  post       Post     @relation(fields: [postId], references: [id])
+  tag        Tag      @relation(fields: [tagId], references: [id])
+  assignedAt DateTime @default(now())
+  assignedBy String
+
+  @@unique([postId, tagId])
+}
