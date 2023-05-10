@@ -7,8 +7,6 @@ import * as TagOperations from "./operations/tagOperations.js";
 import * as PostTagOperations from "./operations/postTagOperations.js";
 import * as SampleData from "./data/sampleData.js";
 
-
-
 async function main() {
   await setupDatabaseForOperations();
 
@@ -93,10 +91,6 @@ async function main() {
   // Retrieve all existing tags
   const allTags = await TagOperations.getAllTags();
   console.log("All tags retrieved:", allTags);
-
-  // Retrieve tag by its ID
-  const tagById = await TagOperations.getTagById(createdTag.id);
-  console.log("Tag retrieved by ID:", tagById);
 
   // Create a post-tag relation for post 1 and the created tag
   const createdPostTag = await PostTagOperations.createPostTag(
