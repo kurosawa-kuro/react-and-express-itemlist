@@ -26,14 +26,14 @@ export async function getAllPostTags() {
     });
 }
 
-// Read Single PostTag by ID
-export async function getPostTagById(id) {
-    if (!id) {
-        throw new Error("PostTag ID is required");
+// Read Single PostTag by Tag ID
+export async function getPostTagsByTagId(tagId) {
+    if (!tagId) {
+        throw new Error("Tag ID is required");
     }
 
-    return await db.postTag.findUnique({
-        where: { id },
+    return await db.postTag.findMany({
+        where: { tagId },
         include: {
             post: {
                 include: { user: true },
@@ -42,3 +42,19 @@ export async function getPostTagById(id) {
         },
     });
 }
+
+// export async function getPostTagById(id) {
+//     if (!id) {
+//         throw new Error("PostTag ID is required");
+//     }
+
+//     return await db.postTag.findUnique({
+//         where: { id },
+//         include: {
+//             post: {
+//                 include: { user: true },
+//             },
+//             tag: true,
+//         },
+//     });
+// }
