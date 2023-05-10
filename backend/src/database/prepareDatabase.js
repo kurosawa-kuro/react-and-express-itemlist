@@ -60,7 +60,7 @@ async function truncateTagTable() {
     }
 }
 
-export async function prepare_database_operation() {
+export async function prepareDatabaseOperation() {
     await connectToDatabase();
 
     await truncatePostTagTable();

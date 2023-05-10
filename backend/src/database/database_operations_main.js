@@ -1,10 +1,7 @@
 // Path: full-stack-basic\react-and-express-itemlist\backend\src\database\database_operations_main.js
+
 import { db } from "./prisma/prismaClient.js";
-
-import {
-  prepare_database_operation
-} from "./prepareDatabase.js";
-
+import { prepareDatabaseOperation } from "./prepareDatabase.js";
 import * as UserOperations from "./userOperations.js";
 import * as PostOperations from "./postOperations.js";
 import * as CommentOperations from "./commentOperations.js";
@@ -13,81 +10,81 @@ import * as PostTagOperations from "./postTagOperations.js";
 
 
 async function main() {
-  await prepare_database_operation();
+  await prepareDatabaseOperation();
 
-  // Register User
-  const newUser = await UserOperations.registerUser("user1", "password1", "user1@example.com");
-  console.log("Register user:", newUser);
+  // Register a new user
+  const registeredUser = await UserOperations.registerUser("user1", "password1", "user1@example.com");
+  console.log("Registered user:", registeredUser);
 
-  // Read User
-  const userByEmail = await UserOperations.getUserByEmail(newUser.email);
-  console.log("Retrieved user by email:", userByEmail);
+  // Retrieve user by email
+  const userByEmail = await UserOperations.getUserByEmail(registeredUser.email);
+  console.log("User retrieved by email:", userByEmail);
 
-  // Login User
-  const isloginUser = await UserOperations.loginUser("user1@example.com", "password1");
-  console.log("Login user:", isloginUser);
+  // Authenticate and login user
+  const authenticatedUser = await UserOperations.loginUser("user1@example.com", "password1");
+  console.log("Authenticated user:", authenticatedUser);
 
-  // updateUserPassword
-  await UserOperations.updateUserPassword(newUser.id, "password1", "password2");
-  console.log("Updated user password");
+  // Update user's password
+  await UserOperations.updateUserPassword(registeredUser.id, "password1", "password2");
+  console.log("User password updated");
 
-  // Create Post
-  const newPost = await PostOperations.createPost(
-    newUser.id,
+  // Create a new post
+  const createdPost = await PostOperations.createPost(
+    registeredUser.id,
     "Sample Title",
     "https://example.com/sample-image.jpg",
     "sample-image.jpg",
     "This is a sample post"
   );
-  console.log("Created post:", newPost);
+  console.log("New post created:", createdPost);
 
-  // Read All Posts
+  // Retrieve all posts
   const allPosts = await PostOperations.getAllPosts();
-  console.log("All posts:", allPosts);
+  console.log("All posts retrieved:", allPosts);
 
-  // Read Single Post by ID
-  const postById = await PostOperations.getPostById(newPost.id);
-  console.log("Retrieved post by ID:", postById);
+  // Retrieve post by ID
+  const postById = await PostOperations.getPostById(createdPost.id);
+  console.log("Post retrieved by ID:", postById);
 
-  // Create Comment
-  const newComment = await CommentOperations.createComment(
-    newUser.id,
-    newPost.id,
+  // Create a new comment
+  const createdComment = await CommentOperations.createComment(
+    registeredUser.id,
+    createdPost.id,
     "This is a sample comment"
   );
-  console.log("Created comment:", newComment);
+  console.log("New comment created:", createdComment);
 
-  // Read All Comments
+  // Retrieve all comments
   const allComments = await CommentOperations.getAllComments();
-  console.log("All comments:", allComments);
+  console.log("All comments retrieved:", allComments);
 
-  // Read Single Comment by ID
-  const commentById = await CommentOperations.getCommentById(newComment.id);
-  console.log("Retrieved comment by ID:", commentById);
+  // Retrieve comment by ID
+  const commentById = await CommentOperations.getCommentById(createdComment.id);
+  console.log("Comment retrieved by ID:", commentById);
 
-  // Create Tag
-  const newTag = await TagOperations.createTag("Sample Tag");
-  console.log("Created tag:", newTag);
+  // Create a new tag
+  const createdTag = await TagOperations.createTag("Sample Tag");
+  console.log("New tag created:", createdTag);
 
-  // Read All Tags
+  // Retrieve all tags
   const allTags = await TagOperations.getAllTags();
-  console.log("All tags:", allTags);
+  console.log("All tags retrieved:", allTags);
 
-  // Read Single Tag by ID
-  const tagById = await TagOperations.getTagById(newTag.id);
-  console.log("Retrieved tag by ID:", tagById);
+  // Retrieve tag by ID
+  const tagById = await TagOperations.getTagById(createdTag.id);
+  console.log("Tag retrieved by ID:", tagById);
 
-  // Create PostTag
-  const newPostTag = await PostTagOperations.createPostTag(newPost.id, newTag.id, newUser.name);
-  console.log("Created postTag:", newPostTag);
+  // Create a new post-tag relation
+  const createdPostTag = await PostTagOperations.createPostTag(createdPost.id, createdTag.id, registeredUser.name);
+  console.log("New post-tag relation created:", createdPostTag);
 
-  // Read All PostTags
+  // Retrieve all post-tag relations
   const allPostTags = await PostTagOperations.getAllPostTags();
-  console.log("All postTags:", allPostTags);
+  console.log("All post-tag relations retrieved:", allPostTags);
 
-  // Read Single PostTag by ID
-  const postTagById = await PostTagOperations.getPostTagById(newPostTag.id);
-  console.log("Retrieved postTag by ID:", postTagById);
+  // Retrieve post-tag relation by ID
+  const postTagById = await PostTagOperations.getPostTagById(createdPostTag.id);
+  console.log("Post-tag relation retrieved by ID:", postTagById);
 }
 
 main()
