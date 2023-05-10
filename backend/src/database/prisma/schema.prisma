@@ -109,10 +109,10 @@ model Notification {
   senderId    Int?
   isRead      Boolean  @default(false)
   createdAt   DateTime @default(now())
+  recipient   User     @relation("NotificationRecipient", fields: [recipientId], references: [id])
   sender      User?    @relation("NotificationSender", fields: [senderId], references: [id])
   post        Post?    @relation(fields: [postId], references: [id])
   comment     Comment? @relation(fields: [commentId], references: [id])
-  recipient   User     @relation("NotificationRecipient", fields: [recipientId], references: [id])
 
   @@index([recipientId])
   @@index([senderId])
