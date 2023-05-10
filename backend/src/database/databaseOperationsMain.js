@@ -6,39 +6,39 @@ import * as CommentOperations from "./commentOperations.js";
 import * as TagOperations from "./tagOperations.js";
 import * as PostTagOperations from "./postTagOperations.js";
 
-const userData = {
+const user1 = {
   username: "user1",
   password: "password1",
   email: "user1@example.com",
   newPassword: "password2",
 };
 
-const userData2 = {
+const user2 = {
   username: "user2",
   password: "password1",
   email: "user2@example.com",
   newPassword: "password2",
 };
 
-const post1Data = {
+const post1 = {
   title: "Sample Title 1",
   imageUrl: "https://example.com/sample-image1.jpg",
   imageName: "sample-image1.jpg",
   content: "This is a sample post 1",
 };
 
-const post2Data = {
+const post2 = {
   title: "Sample Title 2",
   imageUrl: "https://example.com/sample-image2.jpg",
   imageName: "sample-image2.jpg",
   content: "This is a sample post 2",
 };
 
-const commentData = {
+const comment1 = {
   content: "This is a sample comment",
 };
 
-const tagData = {
+const tag1 = {
   name: "Sample Tag",
 };
 
@@ -47,11 +47,11 @@ async function main() {
 
   // Register a new user
   const registeredUser = await UserOperations.registerUser(
-    userData.username, userData.password, userData.email);
+    user1.username, user1.password, user1.email);
   console.log("Registered user:", registeredUser);
 
   const registeredUser2 = await UserOperations.registerUser(
-    userData2.username, userData2.password, userData2.email);
+    user2.username, user2.password, user2.email);
   console.log("Registered user:", registeredUser);
 
   // Retrieve user by email
@@ -59,11 +59,13 @@ async function main() {
   console.log("User retrieved by email:", userByEmail);
 
   // Authenticate and login user
-  const authenticatedUser = await UserOperations.loginUser(userData.email, userData.password);
+  const authenticatedUser = await UserOperations.loginUser(
+    user1.email, user1.password);
   console.log("Authenticated user:", authenticatedUser);
 
   // Update user's password
-  await UserOperations.updateUserPassword(registeredUser.id, userData.password, userData.newPassword);
+  await UserOperations.updateUserPassword(
+    registeredUser.id, user1.password, user1.newPassword);
   console.log("User password updated");
 
   // Follow user example
@@ -77,19 +79,19 @@ async function main() {
   // Create a new post
   const createdPostFirst = await PostOperations.createPost(
     registeredUser.id,
-    post1Data.title,
-    post1Data.imageUrl,
-    post1Data.imageName,
-    post1Data.content
+    post1.title,
+    post1.imageUrl,
+    post1.imageName,
+    post1.content
   );
   console.log("New post created:", createdPostFirst);
 
   const createdPostSecond = await PostOperations.createPost(
     registeredUser.id,
-    post2Data.title,
-    post2Data.imageUrl,
-    post2Data.imageName,
-    post2Data.content
+    post2.title,
+    post2.imageUrl,
+    post2.imageName,
+    post2.content
   );
   console.log("New post created:", createdPostSecond);
 
@@ -105,7 +107,7 @@ async function main() {
   const createdComment = await CommentOperations.createComment(
     registeredUser.id,
     createdPostFirst.id,
-    commentData.content
+    comment1.content
   );
   console.log("New comment created:", createdComment);
 
@@ -118,7 +120,7 @@ async function main() {
   console.log("Comment retrieved by ID:", commentById);
 
   // Create a new tag
-  const createdTag = await TagOperations.createTag(tagData.name);
+  const createdTag = await TagOperations.createTag(tag1.name);
   console.log("New tag created:", createdTag);
 
   // Retrieve all tags
