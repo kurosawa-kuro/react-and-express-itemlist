@@ -1,12 +1,5 @@
 /* src/App.css */
 
-/* General styles */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
 body {
   font-family: Arial, sans-serif;
   background-color: #f5f5f5;
@@ -27,12 +20,13 @@ body {
   margin-bottom: 40px;
 }
 
-h1,
-h2 {
+h1 {
+  font-size: 48px;
   color: #444;
 }
 
 h2 {
+  font-size: 36px;
   color: #666;
 }
 
